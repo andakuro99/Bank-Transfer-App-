@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bank App</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</head>
+<body>
+  <div class="container" id="authPage">
+    <h1>Bank App</h1>
+    <div id="loginForm">
+      <h2>Login</h2>
+      <input type="text" id="loginUsername" placeholder="Username">
+      <input type="password" id="loginPassword" placeholder="Password">
+      <button onclick="login()">Login</button>
+      <p class="switch-auth">Don't have an account? <a href="#" onclick="toggleAuth(true)">Sign Up</a></p>
+      <p id="loginError" class="error"></p>
+    </div>
+    <div id="signupForm" class="hidden">
+      <h2>Sign Up</h2>
+      <input type="text" id="signupUsername" placeholder="Choose Username">
+      <input type="password" id="signupPassword" placeholder="Choose Password">
+      <button onclick="signup()">Sign Up</button>
+      <p class="switch-auth">Already have an account? <a href="#" onclick="toggleAuth(false)">Login</a></p>
+      <p id="signupError" class="error"></p>
+    </div>
+  </div>
+
+  <div class="container hidden" id="dashboard">
+    <h2>Welcome, <span id="userName"></span></h2>
+    <p>Balance: $<span id="balance">0</span></p>
+
+    <h3>Send Money</h3>
+    <select id="bankSelect">
+      <option value="">Select Bank</option>
+      <option>First Bank</option>
+      <option>GTBank</option>
+      <option>Access Bank</option>
+      <option>Zenith Bank</option>
+      <option>UBA</option>
+      <option>Stanbic IBTC</option>
+    </select>
+    <input type="text" id="accountNumber" placeholder="Account Number">
+    <input type="number" id="amount" placeholder="Amount">
+    <button onclick="sendMoney()">Send</button>
+    <p id="transferMsg" class="success"></p>
+    <div id="creditAlert" class="hidden">
+      💰 <strong>Credit Alert!</strong><br>
+      You've successfully sent money.
+    </div>
+
+    <h3>Transaction History</h3>
+    <ul id="historyList"></ul>
+    <button class="logout" onclick="logout()">Logout</button>
+  </div>
+
+  <audio id="alertSound" src="https://www.soundjay.com/button/sounds/cash-register-01.mp3" preload="auto"></audio>
+  <script src="script.js"></script>
+</body>
+</html>
